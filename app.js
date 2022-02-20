@@ -2,17 +2,16 @@ const mongoose= require('mongoose');
 const express= require('express');
 const app = express();
 
-const DB = 'mongodb+srv://patel:lymF2zFg6mqZiySw@cluster0.d1eos.mongodb.net/mernstack?retryWrites=true&w=majority'
+const DB = 'mongodb+srv://patel:lymF2zFg6mqZiySw@cluster0.6ujfo.mongodb.net/mernstack?retryWrites=true&w=majority'
 
 mongoose.connect(DB, {
     useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify:false
-    
+    useUnifiedTopology: true    
 }).then(() => {
     console.log('connection successful');
-}).catch((error) => console.log('no connection'));
+}).catch((error) => {
+    console.error('Mongodb connection error:', error);
+});
 
 //middleware
 
