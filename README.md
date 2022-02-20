@@ -1,4 +1,4 @@
-##MERN stack pratice repo
+##MERN stack pratice repo##
 
 **Main file is:** app.js
 
