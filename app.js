@@ -1,46 +1,47 @@
-const mongoose= require('mongoose');
-const express= require('express');
+const mongoose = require('mongoose');
+const express = require('express');
+const dotenv = require('dotenv');
 const app = express();
+dotenv.config();
+require('./db/conn');
+//const User = require('./model/userSchema');
 
-const DB = 'mongodb+srv://patel:lymF2zFg6mqZiySw@cluster0.6ujfo.mongodb.net/mernstack?retryWrites=true&w=majority'
+app.use(express.json());
 
-mongoose.connect(DB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true    
-}).then(() => {
-    console.log('connection successful');
-}).catch((error) => {
-    console.error('Mongodb connection error:', error);
-});
+// we link the router files to make our route easy.
+
+app.use(require('./router/auth'));
+
+const PORT = process.env.PORT;
 
 //middleware
 
-const middleware= (req,res, next) => {
+const middleware = (req, res, next) => {
     console.log('Hello my middleware');
     next();
 }
 
-app.get('/',(req, res)=> {
+app.get('/', (req, res) => {
     res.send('Hello world from the server');
 });
 
-app.get('/about',middleware, (req, res)=> {
+app.get('/about', middleware, (req, res) => {
     console.log('Hello my About');
     res.send('Hello About world from the server');
 });
 
- app.get('/contact',(req, res)=> {
+app.get('/contact', (req, res) => {
     res.send('Hello Contact world from the server');
 });
 
-app.get('/signin',(req, res)=> {
+app.get('/signin', (req, res) => {
     res.send('Hello Login  world from the server');
 });
 
-app.get('/signup',(req, res)=> {
+app.get('/signup', (req, res) => {
     res.send('Hello Registration world from the server');
 });
 
-app.listen (3000, () =>{
-    console.log('server is running at port no 3000');
-})
+app.listen(3000, () => {
+    console.log(`server is running at port no ${PORT}`);
+});
